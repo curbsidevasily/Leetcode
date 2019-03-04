@@ -13,7 +13,7 @@ class TwoSum {
             if (map.containsKey(res)) return new int[]{map.get(res), i};
             else map.put(nums[i], i);
         }
-
+        return new int[]{-1, -1};
     }
 }
 
@@ -57,7 +57,53 @@ class ThreeSum {
     }
 }
 
+class ThreeSumClosest {
+        static int abs(int n) {
+            if (n < 0) n = -n;
+            return n;
+        }
+
+        static public int threeSumClosest(int[] nums, int target) {
+            int diff = Integer.MAX_VALUE;
+
+            int start, a, b, c, tempDiff, s;
+            int end ;
+
+            Arrays.sort(nums);
+            int i = -1;
+            while (i++ < nums.length - 2) {
+                start = i + 1;
+                end = nums.length - 1;
+                a = nums[i];
+
+                while (start < end) {
+                    b = nums[start];
+                    c = nums[end];
+
+                    tempDiff = target - (a + b + c);
+
+                    if (tempDiff == 0) {
+                        return target;
+                    }
+
+                    if (abs(tempDiff) < abs(diff)) diff = tempDiff;
+                    if (tempDiff > 0) {
+                        start += 1;
+                    } else {
+                        end -= 1;
+                    }
+                }
+            }
+            return target - diff;
+        }
+    }
 
 public class NSum {
+    public static void main(String[] args) {
+        int[] nums = {1,2,4,8,16,32,64,128};
+        int target = 82;
 
-}
+        int closest = ThreeSumClosest.threeSumClosest(nums, target);
+        System.out.println(closest);
+    }
+ }
