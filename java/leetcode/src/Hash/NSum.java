@@ -64,37 +64,32 @@ class ThreeSumClosest {
         }
 
         static public int threeSumClosest(int[] nums, int target) {
-            int diff = Integer.MAX_VALUE;
+            int res = nums[0] + nums[1] + nums[nums.length-1];
 
-            int start, a, b, c, tempDiff, s;
+            int start, tempSum;
             int end ;
 
             Arrays.sort(nums);
-            int i = -1;
-            while (i++ < nums.length - 2) {
-                start = i + 1;
-                end = nums.length - 1;
-                a = nums[i];
+            for (int i = 0; i < nums.length - 2; i++) {
+                start = i + 1; end = nums.length - 1;
 
                 while (start < end) {
-                    b = nums[start];
-                    c = nums[end];
+                    tempSum = nums[i] + nums[start] + nums[end];
 
-                    tempDiff = target - (a + b + c);
-
-                    if (tempDiff == 0) {
+                    if (tempSum == 0) {
                         return target;
                     }
 
-                    if (abs(tempDiff) < abs(diff)) diff = tempDiff;
-                    if (tempDiff > 0) {
+                    if (abs(target - tempSum) < abs(target - res)) res = tempSum;
+
+                    if (tempSum > target) {
                         start += 1;
                     } else {
                         end -= 1;
                     }
                 }
             }
-            return target - diff;
+            return res;
         }
     }
 
